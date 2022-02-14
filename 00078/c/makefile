@@ -8,6 +8,6 @@ debug: bin/solution.debug
 bin/solution: src/solution.c
 	$(CC) $(CFLAGS) -o $@ $<
 bin/solution.debug: src/solution.c
-	$(CC) $(CFLAGS) $(DFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(DFLAGS) -o $@ $<
 clean:
 	rm $(wildcard bin/*)
