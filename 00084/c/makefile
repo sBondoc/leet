@@ -1,10 +1,17 @@
-CC = gcc
-CFLAGS = -ansi -std=c99 -Wall
-DFLAGS = -ansi -std=c99 -Wall -g
+DIR_SRC := src
+DIR_BIN := bin
+CC := gcc
+CFLAGS := -ansi -std=c99 -Wall -Wextra -pedantic
+DFLAGS := -g -DDEBUG
 
-all: src/solution.c
-	$(CC) $(CFLAGS) src/solution.c -o bin/solution
-debug: src/solution.c
-	$(CC) $(DFLAGS) src/solution.c -o bin/solution
+.PHONY: all debug clean bin
+all: $(DIR_BIN)/solution
+debug: $(DIR_BIN)/solution.debug
+$(DIR_BIN)/solution: $(DIR_SRC)/solution.c $(DIR_BIN)
+	$(CC) $(CFLAGS) -o $@ $<
+$(DIR_BIN)/solution.debug: $(DIR_SRC)/solution.c $(DIR_BIN)
+	$(CC) $(CFLAGS) $(DFLAGS) -o $@ $<
+$(DIR_BIN):
+	mkdir -p $@
 clean:
 	rm bin/*
