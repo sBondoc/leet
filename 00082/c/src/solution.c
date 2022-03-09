@@ -53,13 +53,12 @@ struct Node *add_node(struct Node **head, int data)
 void delete_list(struct Node **head)
 {
 	struct Node *n = *head, *next = NULL;
-	while (n->next)
+	while (n)
 	{
 		next = n->next;
 		free(n);
 		n = next;
 	}
-	free(n);
 }
 
 struct Node *list_from_arr(int arr[], int size)
@@ -76,7 +75,7 @@ struct Node *list_from_arr(int arr[], int size)
 	return ret;
 }
 
-struct Node *list_no_duplicates(struct Node *head)
+struct Node *list_no_duplicates_old(struct Node *head)
 {
 	struct Node *ret = NULL, *n = head;
 	int data;
@@ -99,14 +98,50 @@ struct Node *list_no_duplicates(struct Node *head)
 	return ret;
 }
 
+struct Node *list_no_duplicates(struct Node *head)
+{
+	struct Node *n = head, *n_prev = NULL;
+	int data;
+	while (n)
+	{
+		data = n->data;
+		if (n->next && (n->next->data == data))
+		{
+			struct Node *d = n, *d_next = NULL;
+			while (d && (d->data == data))
+			{
+				d_next = d->next;
+				free(d);
+				d = d_next;
+			}
+			if (n_prev)
+			{
+				n = n_prev;
+				n->next = d;
+			}
+			else
+			{
+				head = d;
+				n = d;
+				n_prev = NULL;
+			}
+		}
+		else
+		{
+			n_prev = n;
+			n = n->next;
+		}
+	}
+	return head;
+}
+
 int main(int argc, char *argv[])
 {
-	int arr[] = {1, 2, 3, 3, 4, 4, 5};
-	struct Node *head = list_from_arr(arr, 7);
-	struct Node *result = list_no_duplicates(head);
+	int arr[] = {1, 1, 1, 2, 3};
+	struct Node *head = list_from_arr(arr, 5);
 	print_list(&head);
-	print_list(&result);
+	head = list_no_duplicates(head);
+	print_list(&head);
 	delete_list(&head);
-	delete_list(&result);
 	return EXIT_SUCCESS;
 }
