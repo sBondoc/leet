@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BUFFER_MSG 127
-
 struct Node
 {
 	int data;
@@ -111,8 +109,16 @@ struct Node *arr_to_list(int *arr, int size)
 
 struct Node *rotate_right(struct Node *head, int k)
 {
-	k %= list_length(&head);
-	return NULL;
+	if (!head)
+	{
+		return head;
+	}
+	int length = list_length(&head);
+	k = length - k % length;
+	node_tail(&head)->next = head;
+	struct Node *ret = node_index(&head, k);
+	node_index(&head, k - 1)->next = NULL;
+	return ret;
 }
 
 int main(int argc, char *argv[])
@@ -124,6 +130,11 @@ int main(int argc, char *argv[])
 	fprintf(stdout, "\n");
 	fprintf(stdout, "list.length = %d\n", list_length(&head));
 	fprintf(stdout, "list[%d] = %d\n", 3, node_index(&head, 3)->data);
+	head = rotate_right(head, 2);
+	fprintf(stdout, "%d\n", head->data);
+	fprintf(stdout, "list = ");
+	fprintlist(stdout, &head);
+	fprintf(stdout, "\n");
 	delete_list(&head);
 	return EXIT_SUCCESS;
 }
