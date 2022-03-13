@@ -2,7 +2,7 @@ DIR_SRC := src
 DIR_BIN := bin
 APP := solution
 CC := gcc
-CFLAGS := -ansi -std=c99 -Wall -Wextra -pedantic
+CFLAGS := -std=c11 -fsanitize=address -Wall -Wextra -Wpedantic
 DFLAGS := -g -DDEBUG
 COMPILE := $(CC) $(CFLAGS)
 
