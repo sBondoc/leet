@@ -135,6 +135,10 @@ char *canonical(char *path)
 			}
 			ret[++top] = path[i];
 		}
+		#ifdef DEBUG
+		ret[top + 1] = '\0';
+		fprintf(stdout, "\t%s\n", ret);
+		#endif
 	}
 	if (top < 0)
 	{
