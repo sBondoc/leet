@@ -30,7 +30,7 @@ int **subsets(int *nums, int size, int *size_return, int **sizes_columns)
 	(*sizes_columns) = malloc((*size_return) * sizeof(int));
 	if ((*sizes_columns) == NULL)
 	{
-		perror("Failed to malloc \"sizes_columns\". Try downlaoding more RAM.\n");
+		perror("Failed to malloc \"sizes_columns\". Try downloading more RAM.\n");
 		return NULL;
 	}
 	for (unsigned int subset = 0; subset < (unsigned int) *size_return; subset++)
@@ -48,7 +48,7 @@ int **subsets(int *nums, int size, int *size_return, int **sizes_columns)
 		subset_new = malloc(size_subset * sizeof(int));
 		if (subset_new == NULL)
 		{
-			perror("Failed to malloc \"subset_new\". Try downlaoding more RAM.\n");
+			perror("Failed to malloc \"subset_new\". Try downloading more RAM.\n");
 			return NULL;
 		}
 		int j = 0;
@@ -78,6 +78,7 @@ int main(int argv, char *argc[])
 		print_arr(sets[i], sizes_columns[i]);
 		free(sets[i]);
 	}
+	free(sets);
 	free(sizes_columns);
 	return EXIT_SUCCESS;
 }
