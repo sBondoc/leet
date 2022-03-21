@@ -33,9 +33,14 @@ int **subsets(int *nums, int size, int *size_return, int **sizes_columns)
 		perror("Failed to malloc \"sizes_columns\". Try downloading more RAM.\n");
 		return NULL;
 	}
+	/*
+		Rationale: View every bit as a selection in the array. Say we want every
+		possible combination from a set of 5. Map each item to a bit. Each possible
+		combination is covered by a 5-bit number, so iterating through every 5-bit
+		number yields every combination.
+	*/
 	for (unsigned int subset = 0; subset < (unsigned int) *size_return; subset++)
 	{
-		int *subset_new = NULL;		
 		int size_subset = 0;
 		for (int i = 0; i < size; i++)
 		{
@@ -43,8 +48,8 @@ int **subsets(int *nums, int size, int *size_return, int **sizes_columns)
 			{
 				size_subset++;
 			}
-						
 		}
+		int *subset_new = NULL;
 		subset_new = malloc(size_subset * sizeof(int));
 		if (subset_new == NULL)
 		{
@@ -68,11 +73,10 @@ int **subsets(int *nums, int size, int *size_return, int **sizes_columns)
 
 int main(int argv, char *argc[])
 {
-	int size = 4;
-	int nums[] = {1, 2, 3, 4};
+	int nums[] = {1, 2, 3, 4, 5};
 	int size_return = 0;
-	int *sizes_columns = &size_return;
-	int **sets = subsets(nums, size, &size_return, &sizes_columns);
+	int *sizes_columns = NULL;
+	int **sets = subsets(nums, sizeof(nums) / sizeof(nums[0]), &size_return, &sizes_columns);
 	for (int i = 0; i < size_return; i++)
 	{
 		print_arr(sets[i], sizes_columns[i]);
