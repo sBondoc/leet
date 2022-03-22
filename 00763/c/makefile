@@ -17,10 +17,10 @@ SRC := $(subst ./,,$(shell find -regex ".*\/$(DIR_SRC)\/\w+\.\($(EXT_SRC_REGEX)\
 .phony: all run debug rundbg clean
 all: $(EXEC)
 run: $(EXEC)
-	./@<
+	./$<
 debug: $(EXEC)_debug
 rundbg: $(EXEC)_debug
-	./@<
+	./$<
 clean:
 	rm -rf $(DIR_BIN)
 $(DIR_BIN):
