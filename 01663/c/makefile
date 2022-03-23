@@ -3,14 +3,15 @@ DIR_BIN := bin
 EXT_SRC := c h
 EXT_APP :=
 APP := solution
-EXEC := $(DIR_BIN)/$(APP)
 CC := gcc
 CFLAGS := -std=c11 -fsanitize=address -Wall -Wextra -Wpedantic
 DFLAGS := -g -DDEBUG
-COMPILE := $(CC) $(CFLAGS)
 
 MT :=
 SP := $(MT) $(MT)
+
+EXEC := $(DIR_BIN)/$(APP)
+COMPILE := $(CC) $(CFLAGS)
 EXT_SRC_REGEX := $(subst $(SP),\|,$(EXT_SRC))
 PATH_SRC := $(shell find -regex ".*$(DIR_SRC)\/\w+\.\($(EXT_SRC_REGEX)\)")
 SRC := $(subst ./,$(MT),$(PATH_SRC))
