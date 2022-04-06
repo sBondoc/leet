@@ -7,19 +7,19 @@ struct Node
 	struct Node *next;
 };
 
-void fprintlist(struct Node **head)
+void fprintlist(FILE *stream, struct Node **head)
 {
-	fprintf(stdout, "{");
+	fprintf(stream, "{");
 	struct Node *n = *head;
 	if (n)
 	{
 		for (; n->next; n = n->next)
 		{
-			fprintf(stdout, "%d, ", n->data);
+			fprintf(stream, "%d, ", n->data);
 		}
-		fprintf(stdout, "%d", n->data);
+		fprintf(stream, "%d", n->data);
 	}
-	fprintf(stdout, "}\n");
+	fprintf(stream, "}\n");
 }
 
 struct Node *node_new(int data)
@@ -88,17 +88,33 @@ struct Node *list_from_arr(int *arr, int size)
 	return head;
 }
 
+struct Node *node_from_index(struct Node **head, int k)
+{
+	struct Node *n = *head;
+	for (int i = 0; i < k; i++)
+	{
+		if (!n)
+		{
+			return NULL;
+		}
+		n = n->next;
+	}
+	return n;
+}
+
 struct Node *swap(struct Node *head, int k)
 {
 	//code 
-	return NULL;
+	return head;
 }
 
 int main(int argc, char *argv[])
 {
 	int arr[] = {1, 2, 3, 4, 5}, size = sizeof(arr) / sizeof(arr[0]);
 	struct Node *head = list_from_arr(arr, size);
-	fprintlist(&head);
+	fprintlist(stdout, &head);
+	int k = 5;
+	fprintf(stdout, "%d\n", node_from_index(&head, k) ? node_from_index(&head, k)->data : -1);
 	delete_list(&head);
 	return EXIT_SUCCESS;
 }
