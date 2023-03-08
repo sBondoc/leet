@@ -9,18 +9,21 @@ void fprintarr(FILE *stream, int *arr, int size)
 	}
 	fprintf(stream, "%d}", arr[size - 1]);
 }
-void remove_duplicates(int *arr, int size)
+int remove_duplicates(int *arr, int size)
 {
+	int k = size;
 	for (int i = size - 1; 0 < i; i--)
 	{
 		if (arr[i] == arr[i - 1])
 		{
-			for (int j = i; j < size; j++)
+			k--;
+			for (int j = i; j < k + 1; j++)
 			{
 				arr[j - 1] = arr[j];
 			}
 		}
 	}
+	return k;
 }
 int main(void)
 {
