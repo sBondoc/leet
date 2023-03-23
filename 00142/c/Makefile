@@ -3,7 +3,7 @@ CFLAGS := -std=c11 -Wall -Wextra -Wpedantic -fsanitize=address
 DFLAGS := -std=c11 -Wall -Wextra -Wpedantic -g
 DIR_SRC := src
 DIR_BIN := bin
-DIR_DBG := dbg
+DIR_DBG := debug
 APP := solution
 EXEC_DBG := $(DIR_DBG)/$(APP)
 EXEC := $(DIR_BIN)/$(APP)
@@ -15,7 +15,6 @@ run: $(EXEC)
 dbg: $(EXEC_DBG)
 rundbg: $(EXEC_DBG)
 	./$<
-dbg: $(EXEC)$(EXT_DBG)
 clean: force
 	rm -rf $(DIR_BIN) $(DIR_DBG)
 force:
